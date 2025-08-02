@@ -11,3 +11,11 @@ def characters_used(text):
         else:
              count[char] += 1
     return count
+
+def sort_characters(chars):
+    sorted_chars = []
+    for char, count in chars.items():
+        if char.isalpha():
+            sorted_chars.append({"char": char, "num": count})
+    sorted_chars.sort(reverse=True, key=lambda count: count["num"])        
+    return sorted_chars        
