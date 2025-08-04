@@ -3,14 +3,19 @@ if len(sys.argv) < 2:
     print("Usage: python3 main.py <path_to_book>")
     sys.exit(1)
 
-from stats import get_num_words
-from stats import characters_used
-from stats import sort_characters
+from stats import get_num_words, characters_used, sort_characters
 
 def get_book_text(path_to_file):
-    with open(path_to_file) as f:
-        file_contents = f.read()
-    return file_contents
+    try:
+        with open(path_to_file) as f:
+            file_contents = f.read()
+        return file_contents
+    except FileNotFoundError:
+        print(f"Error: File '{path_to_file}' not found")
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied reading '{path_to_file}'")
+        sys.exit(1)        
 
 def main():
     file_contents = get_book_text(sys.argv[1])
@@ -18,7 +23,7 @@ def main():
     characters = characters_used(file_contents)
     sorted_char_count = sort_characters(characters)
     print("============ BOOKBOT ============")
-    print("Analyzing book found at books/frankenstein.txt...")
+    print(f"Analyzing book found at {sys.argv[1]}...")
     print("----------- Word Count ----------")
     print(f"Found {word_count} total words")
     print("--------- Character Count -------")
@@ -29,7 +34,7 @@ def main():
 
     
 
-
-main()
+if __name__ == "__main__":
+    main()
 
 
