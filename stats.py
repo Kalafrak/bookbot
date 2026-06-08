@@ -18,4 +18,13 @@ def sort_characters(chars):
         if char.isalpha():
             sorted_chars.append({"char": char, "num": count})
     sorted_chars.sort(reverse=True, key=lambda count: count["num"])        
-    return sorted_chars        
+    return sorted_chars
+
+def sort_on(char_count: tuple[str, int]) -> int:
+    return char_count[1]
+
+def chars_dict_to_sorted_list(characters_used: dict[str, int]) -> list[tuple[str, int]]:
+    char_list = []
+    for char in characters_used.keys():
+        char_list.append((char, characters_used[char]))
+    return sorted(char_list, reverse=True, key=sort_on)
